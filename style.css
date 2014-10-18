@@ -1,0 +1,5 @@
+tr > .icon,
+:not(.commit-title) > .message,
+.age {
+    display: none;
+}
