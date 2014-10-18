@@ -2,6 +2,7 @@
 .repohead,
 .repository-meta,
 .overall-summary,
+.commit > *,
 tr > .icon,
 :not(.commit-title) > .message,
 .age,
