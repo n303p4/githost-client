@@ -6,6 +6,7 @@ from paths import app_folder
 from qsettings import QSettings
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtWidgets import QApplication, QMainWindow, QToolBar, QAction, QMessageBox, QInputDialog, QFileDialog
+from PyQt5.QtWebKit import qWebKitVersion
 from PyQt5.QtWebKitWidgets import QWebView
 
 settings = QSettings(dirname="githost-client")
@@ -65,7 +66,7 @@ class MainWindow(QMainWindow):
         self.webView.load(QUrl.fromUserInput(settings.value("settings/GitUrl")))
 
     def setGitHubSite(self):
-        url = QInputDialog.getText(self, "Githost", "Enter your site here:")
+        url = QInputDialog.getText(self, "Githost", "Enter the URL of your project page here:")
         if url[1]:
             settings.setValue("settings/GitUrl", url[0])
             self.webView.load(QUrl.fromUserInput(settings.value("settings/GitUrl")))
@@ -126,6 +127,7 @@ class MainWindow(QMainWindow):
 def main(argv):
     app = QApplication(argv)
     app.setApplicationName("Githost")
+    app.setApplicationVersion(qWebKitVersion())
     win = MainWindow()
     win.show()
     sys.exit(app.exec_())
