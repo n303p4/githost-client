@@ -1,5 +1,11 @@
+.header-nav,
+.repohead,
+.repository-meta,
+.overall-summary,
 tr > .icon,
 :not(.commit-title) > .message,
-.age {
+.age,
+#readme,
+.site-footer {
     display: none;
 }

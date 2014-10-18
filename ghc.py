@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         # Main toolbar
         self.toolBar = QToolBar(self)
         self.toolBar.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.addToolBar(self.toolBar)
+        self.addToolBar(Qt.LeftToolBarArea, self.toolBar)
         
         page = self.webView.page()
 
@@ -101,20 +101,25 @@ class MainWindow(QMainWindow):
                 os.system("cd %s && xterm -e \"git push --all\" &" % (repo,))
 
     def jsHack(self):
-        self.webView.page().mainFrame().evaluateJavaScript("""contents = document.getElementsByClassName("content");
+        self.webView.page().mainFrame().evaluateJavaScript("""String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+        
+        contents = document.getElementsByClassName("content");
         links = document.getElementsByClassName("js-directory-link");
         for(i=0; i<contents.length;i++) {
             br = document.createElement("br");
             contents[i].appendChild(br);
             imgLink = document.location.href.replace("github.com", "raw.githubusercontent.com") + "/master/" + links[i].innerHTML;
-            /*links[i].innerHTML = "";
-            img = document.createElement("img");
-            img.src = imgLink;
-            img.setAttribute("style", "height: 128px;");
-            links[i].appendChild(img);*/
             input = document.createElement("input");
             input.setAttribute("style", "width: 100%;");
-            input.setAttribute("value", "[IMG]" + imgLink + "[/IMG]");
+            lowerLink = imgLink.toLowerCase();
+            if (lowerLink.endsWith(".jpg") || lowerLink.endsWith(".jpeg") || lowerLink.endsWith(".png") || lowerLink.endsWith(".gif") || lowerLink.endsWith(".mng") || lowerLink.endsWith(".apng") || lowerLink.endsWith(".webp")) {
+                input.setAttribute("value", "[IMG]" + imgLink + "[/IMG]");
+            }
+            else {
+                input.setAttribute("value", "[URL]" + imgLink + "[/URL]");
+            }
             contents[i].appendChild(input);
         }""")
 
