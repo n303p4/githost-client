@@ -3,10 +3,15 @@
 .repository-meta,
 .overall-summary,
 .commit > *,
+.repository-sidebar.clearfix,
 tr > .icon,
 :not(.commit-title) > .message,
 .age,
 #readme,
 .site-footer {
     display: none;
+}
+
+.repository-content.context-loader-container {
+    width: 100% !important;
 }
