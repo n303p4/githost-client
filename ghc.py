@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
         links = document.getElementsByClassName("js-directory-link");
         for(i=0; i<contents.length;i++) {
             br = document.createElement("br");
-            contents[i].appendChild(br);
+            contents[i+1].appendChild(br);
             imgLink = document.location.href.replace("github.com", "raw.githubusercontent.com") + "/master/" + links[i].innerHTML;
             input = document.createElement("input");
             input.setAttribute("style", "width: 100%;");
@@ -121,7 +121,7 @@ class MainWindow(QMainWindow):
             else {
                 input.setAttribute("value", "[URL]" + imgLink + "[/URL]");
             }
-            contents[i].appendChild(input);
+            contents[i+1].appendChild(input);
         }""")
 
 def main(argv):
